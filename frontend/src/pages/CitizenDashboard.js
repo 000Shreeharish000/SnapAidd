@@ -6,15 +6,13 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from '../components/ui/button';
 import { 
   Camera, Upload, Video, Siren, Phone, User, LogOut, 
-  MapPin, Loader2, AlertTriangle, ChevronRight, Trophy
+  MapPin, Loader2, ChevronRight, Trophy
 } from 'lucide-react';
 import LanguageSelector from '../components/LanguageSelector';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
-
 const CitizenDashboard = () => {
   const navigate = useNavigate();
-  const { user, token, logout } = useAuth();
+  const { user, logout } = useAuth();
   const { t } = useLanguage();
   
   const [loading, setLoading] = useState(false);
@@ -42,20 +40,18 @@ const CitizenDashboard = () => {
     );
   }, []);
 
-  const handleFileSelect = async (e, type) => {
+  const handleFileSelect = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setLoading(true);
     
     try {
-      // Convert to base64
       const reader = new FileReader();
       reader.onload = async () => {
         const base64 = reader.result.split(',')[1];
         const mediaType = file.type;
         
-        // Navigate to review page with media data
         navigate('/review', {
           state: {
             media: { base64, type: mediaType, name: file.name },
@@ -76,23 +72,23 @@ const CitizenDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] flex flex-col" data-testid="citizen-dashboard">
+    <div className="min-h-screen bg-black flex flex-col" data-testid="citizen-dashboard">
       {/* Header */}
       <header className="glass sticky top-0 z-50 px-4 py-3 safe-top">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center overflow-hidden">
               {user?.picture ? (
                 <img src={user.picture} alt="" className="w-full h-full object-cover" />
               ) : (
-                <User className="w-5 h-5 text-white" />
+                <User className="w-5 h-5 text-zinc-500" />
               )}
             </div>
             <div>
               <p className="text-white font-medium text-sm">{user?.name}</p>
-              <p className="text-zinc-500 text-xs flex items-center gap-1">
-                <Trophy className="w-3 h-3 text-amber-400" />
-                {user?.points || 0} {t('totalPoints')}
+              <p className="text-zinc-600 text-xs flex items-center gap-1">
+                <Trophy className="w-3 h-3 text-red-500" />
+                {user?.points || 0} pts
               </p>
             </div>
           </div>
@@ -102,7 +98,7 @@ const CitizenDashboard = () => {
               variant="ghost"
               size="icon"
               onClick={handleLogout}
-              className="text-zinc-400 hover:text-white"
+              className="text-zinc-600 hover:text-white"
               data-testid="logout-btn"
             >
               <LogOut className="w-5 h-5" />
@@ -117,17 +113,17 @@ const CitizenDashboard = () => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between p-4 rounded-xl bg-zinc-900/50 border border-zinc-800"
+          className="flex items-center justify-between p-4 rounded-xl bg-zinc-950 border border-zinc-900"
         >
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              location ? 'bg-green-500/20 text-green-400' : 'bg-zinc-800 text-zinc-500'
+              location ? 'bg-red-950/50 text-red-500' : 'bg-zinc-900 text-zinc-600'
             }`}>
               <MapPin className="w-5 h-5" />
             </div>
             <div>
               <p className="text-white text-sm font-medium">{t('location')}</p>
-              <p className="text-zinc-500 text-xs">
+              <p className="text-zinc-600 text-xs font-mono">
                 {location 
                   ? `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}`
                   : 'Not detected'
@@ -140,14 +136,14 @@ const CitizenDashboard = () => {
             size="sm"
             onClick={getLocation}
             disabled={gettingLocation}
-            className="text-zinc-400 hover:text-white"
+            className="text-zinc-500 hover:text-white"
             data-testid="get-location-btn"
           >
             {gettingLocation ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Detect'}
           </Button>
         </motion.div>
 
-        {/* SOS Button - Prominent */}
+        {/* SOS Button */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -156,7 +152,7 @@ const CitizenDashboard = () => {
           <Link to="/sos" data-testid="sos-button-link">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              className="w-40 h-40 rounded-full bg-gradient-to-br from-red-500 to-red-700 text-white font-display font-black text-4xl sos-pulse flex flex-col items-center justify-center gap-2 border-4 border-red-400/50"
+              className="w-40 h-40 rounded-full bg-red-600 text-white font-display font-black text-4xl sos-pulse flex flex-col items-center justify-center gap-2 border-4 border-red-500/50"
               data-testid="sos-button"
             >
               <Siren className="w-10 h-10" />
@@ -167,7 +163,7 @@ const CitizenDashboard = () => {
 
         {/* Action Buttons */}
         <div className="space-y-4">
-          <h2 className="font-display font-bold text-xl text-white">{t('reportEmergency')}</h2>
+          <h2 className="font-display font-bold text-lg text-white">{t('reportEmergency')}</h2>
           
           <div className="grid grid-cols-3 gap-4">
             {/* Capture Image */}
@@ -175,10 +171,10 @@ const CitizenDashboard = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => cameraInputRef.current?.click()}
               disabled={loading}
-              className="aspect-square rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 p-4 flex flex-col items-center justify-center gap-2 glow-blue btn-press"
+              className="aspect-square rounded-xl bg-red-600 p-4 flex flex-col items-center justify-center gap-2 btn-press"
               data-testid="capture-image-btn"
             >
-              <Camera className="w-8 h-8 text-white" />
+              <Camera className="w-7 h-7 text-white" />
               <span className="text-white text-xs font-medium text-center">{t('captureImage')}</span>
             </motion.button>
 
@@ -187,11 +183,11 @@ const CitizenDashboard = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => imageInputRef.current?.click()}
               disabled={loading}
-              className="aspect-square rounded-2xl bg-zinc-800 border border-zinc-700 p-4 flex flex-col items-center justify-center gap-2 hover:bg-zinc-700/50 transition-colors btn-press"
+              className="aspect-square rounded-xl bg-zinc-950 border border-zinc-800 p-4 flex flex-col items-center justify-center gap-2 hover:bg-zinc-900 transition-colors btn-press"
               data-testid="upload-image-btn"
             >
-              <Upload className="w-8 h-8 text-zinc-300" />
-              <span className="text-zinc-300 text-xs font-medium text-center">{t('uploadImage')}</span>
+              <Upload className="w-7 h-7 text-zinc-400" />
+              <span className="text-zinc-400 text-xs font-medium text-center">{t('uploadImage')}</span>
             </motion.button>
 
             {/* Upload Video */}
@@ -199,11 +195,11 @@ const CitizenDashboard = () => {
               whileTap={{ scale: 0.95 }}
               onClick={() => videoInputRef.current?.click()}
               disabled={loading}
-              className="aspect-square rounded-2xl bg-zinc-800 border border-zinc-700 p-4 flex flex-col items-center justify-center gap-2 hover:bg-zinc-700/50 transition-colors btn-press"
+              className="aspect-square rounded-xl bg-zinc-950 border border-zinc-800 p-4 flex flex-col items-center justify-center gap-2 hover:bg-zinc-900 transition-colors btn-press"
               data-testid="upload-video-btn"
             >
-              <Video className="w-8 h-8 text-zinc-300" />
-              <span className="text-zinc-300 text-xs font-medium text-center">{t('uploadVideo')}</span>
+              <Video className="w-7 h-7 text-zinc-400" />
+              <span className="text-zinc-400 text-xs font-medium text-center">{t('uploadVideo')}</span>
             </motion.button>
           </div>
 
@@ -213,7 +209,7 @@ const CitizenDashboard = () => {
             type="file"
             accept="image/*"
             capture="environment"
-            onChange={(e) => handleFileSelect(e, 'image')}
+            onChange={handleFileSelect}
             className="hidden"
             data-testid="camera-input"
           />
@@ -221,7 +217,7 @@ const CitizenDashboard = () => {
             ref={imageInputRef}
             type="file"
             accept="image/*"
-            onChange={(e) => handleFileSelect(e, 'image')}
+            onChange={handleFileSelect}
             className="hidden"
             data-testid="image-input"
           />
@@ -229,7 +225,7 @@ const CitizenDashboard = () => {
             ref={videoInputRef}
             type="file"
             accept="video/*"
-            onChange={(e) => handleFileSelect(e, 'video')}
+            onChange={handleFileSelect}
             className="hidden"
             data-testid="video-input"
           />
@@ -239,36 +235,36 @@ const CitizenDashboard = () => {
         <div className="space-y-3 safe-bottom">
           <Link
             to="/profile"
-            className="flex items-center justify-between p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:bg-zinc-800/50 transition-colors"
+            className="flex items-center justify-between p-4 rounded-xl bg-zinc-950 border border-zinc-900 hover:bg-zinc-900 transition-colors"
             data-testid="profile-link"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
-                <Trophy className="w-5 h-5 text-amber-400" />
+              <div className="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-red-500" />
               </div>
               <div>
                 <p className="text-white font-medium">{t('viewProfile')}</p>
-                <p className="text-zinc-500 text-sm">{user?.badges?.length || 0} {t('badges')}</p>
+                <p className="text-zinc-600 text-sm">{user?.badges?.length || 0} {t('badges')}</p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-zinc-500" />
+            <ChevronRight className="w-5 h-5 text-zinc-600" />
           </Link>
 
           <Link
             to="/emergency-numbers"
-            className="flex items-center justify-between p-4 rounded-xl bg-red-900/20 border border-red-800/30 hover:bg-red-900/30 transition-colors"
+            className="flex items-center justify-between p-4 rounded-xl bg-red-950/20 border border-red-900/30 hover:bg-red-950/30 transition-colors"
             data-testid="emergency-link"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
-                <Phone className="w-5 h-5 text-red-400" />
+              <div className="w-10 h-10 rounded-full bg-red-950/50 flex items-center justify-center">
+                <Phone className="w-5 h-5 text-red-500" />
               </div>
               <div>
                 <p className="text-white font-medium">{t('emergencyNumbers')}</p>
                 <p className="text-zinc-500 text-sm">{t('tapToCall')}</p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-zinc-500" />
+            <ChevronRight className="w-5 h-5 text-zinc-600" />
           </Link>
         </div>
       </main>
@@ -280,7 +276,7 @@ const CitizenDashboard = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
           >
             <div className="text-center">
               <Loader2 className="w-12 h-12 text-red-500 animate-spin mx-auto mb-4" />
