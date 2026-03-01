@@ -1,82 +1,100 @@
 {
   "summary": {
-    "total_tests": 12,
-    "passed_tests": 11,
-    "success_rate": 91.66666666666666,
-    "timestamp": "2026-03-01T11:45:38.148326"
+    "total_tests": 15,
+    "passed_tests": 15,
+    "success_rate": 100.0,
+    "timestamp": "2026-03-01T12:07:17.539974"
   },
   "tests": [
     {
       "test": "API Root Endpoint",
       "status": "PASS",
       "details": "Response: SnapAid API Running",
-      "timestamp": "2026-03-01T11:45:36.259168"
+      "timestamp": "2026-03-01T12:07:09.289934"
     },
     {
       "test": "Health Check Endpoint",
       "status": "PASS",
       "details": "Status: healthy",
-      "timestamp": "2026-03-01T11:45:36.397540"
+      "timestamp": "2026-03-01T12:07:09.398509"
     },
     {
       "test": "Citizen Login",
       "status": "PASS",
       "details": "Role: citizen, Name: Test Citizen",
-      "timestamp": "2026-03-01T11:45:36.714534"
+      "timestamp": "2026-03-01T12:07:09.738262"
     },
     {
       "test": "Police Login",
       "status": "PASS",
       "details": "Role: police, Name: Police Officer",
-      "timestamp": "2026-03-01T11:45:37.036099"
+      "timestamp": "2026-03-01T12:07:10.065379"
     },
     {
       "test": "Invalid Login Rejection",
       "status": "PASS",
       "details": "Should return 401",
-      "timestamp": "2026-03-01T11:45:37.136908"
+      "timestamp": "2026-03-01T12:07:10.165241"
     },
     {
       "test": "Get Current User",
       "status": "PASS",
       "details": "Email: citizen@test.com, Role: citizen",
-      "timestamp": "2026-03-01T11:45:37.268941"
+      "timestamp": "2026-03-01T12:07:10.328285"
     },
     {
       "test": "Get Profile",
       "status": "PASS",
-      "details": "Points: 0",
-      "timestamp": "2026-03-01T11:45:37.371079"
+      "details": "Points: 30",
+      "timestamp": "2026-03-01T12:07:10.460770"
     },
     {
       "test": "Media Analysis",
       "status": "PASS",
       "details": "Type: Other, Severity: 3",
-      "timestamp": "2026-03-01T11:45:37.700556"
+      "timestamp": "2026-03-01T12:07:16.769155"
     },
     {
       "test": "Create Incident",
-      "status": "FAIL",
-      "details": "Response: {'incident_id': 'inc_5452dc89fda2', 'user_id': 'user_161b3192960d', 'user_name': 'Test Citizen', 'incident_type': 'Other', 'severity_score': 3, 'confidence_score': 0.8, 'authenticity_score': 0.9, 'description': 'Test incident for API testing', 'ai_summary': 'Test incident summary', 'latitude': 12.9716, 'longitude': 77.5946, 'status': 'pending', 'internal_notes': None, 'media_url': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChAGA...', 'created_at': '2026-03-01T11:45:37.786700+00:00'}",
-      "timestamp": "2026-03-01T11:45:37.818258"
+      "status": "PASS",
+      "details": "ID: inc_6f1db1f23340",
+      "timestamp": "2026-03-01T12:07:16.883369"
     },
     {
       "test": "Get Citizen Incidents",
       "status": "PASS",
-      "details": "Found 1 incidents",
-      "timestamp": "2026-03-01T11:45:37.922941"
+      "details": "Found 2 incidents",
+      "timestamp": "2026-03-01T12:07:16.990307"
+    },
+    {
+      "test": "Get All Incidents (Police)",
+      "status": "PASS",
+      "details": "Found 5 total incidents",
+      "timestamp": "2026-03-01T12:07:17.101688"
+    },
+    {
+      "test": "Get Police Stats",
+      "status": "PASS",
+      "details": "Total: 5, Pending: 5",
+      "timestamp": "2026-03-01T12:07:17.210148"
+    },
+    {
+      "test": "Update Incident",
+      "status": "PASS",
+      "details": "Status: dispatched",
+      "timestamp": "2026-03-01T12:07:17.321125"
     },
     {
       "test": "Citizen Stats Access Denied",
       "status": "PASS",
       "details": "Should return 403 Forbidden",
-      "timestamp": "2026-03-01T11:45:38.019828"
+      "timestamp": "2026-03-01T12:07:17.422201"
     },
     {
       "test": "Get Leaderboard",
       "status": "PASS",
-      "details": "Found 1 users",
-      "timestamp": "2026-03-01T11:45:38.148053"
+      "details": "Found 2 users",
+      "timestamp": "2026-03-01T12:07:17.539701"
     }
   ]
 }
