@@ -5,17 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #09090b;
-  --surface: #18181b;
-  --surface-highlight: #27272a;
-  --primary: #ef4444;
-  --primary-glow: rgba(239, 68, 68, 0.5);
-  --secondary: #3b82f6;
-  --accent: #f59e0b;
-  --success: #22c55e;
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --border: #27272a;
+  --background: #000000;
+  --surface: #0a0a0a;
+  --surface-highlight: #141414;
+  --primary: #dc2626;
+  --primary-glow: rgba(220, 38, 38, 0.5);
+  --text-primary: #ffffff;
+  --text-secondary: #737373;
+  --border: #1a1a1a;
 }
 
 * {
@@ -26,8 +23,8 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--background);
-  color: var(--text-primary);
+  background-color: #000000;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -35,21 +32,17 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--surface);
+  background: #000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-highlight);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #262626;
+  border-radius: 2px;
 }
 
 /* Typography */
@@ -61,36 +54,28 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Glass Morphism */
+/* Glass Morphism - Simplified */
 .glass {
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Glow Effects */
+/* Glow Effect */
 .glow-red {
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4), 0 0 40px rgba(239, 68, 68, 0.2);
-}
-
-.glow-blue {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(59, 130, 246, 0.2);
-}
-
-.glow-green {
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4), 0 0 40px rgba(34, 197, 94, 0.2);
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
 }
 
 /* SOS Button Animation */
 @keyframes sos-pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 30px rgba(220, 38, 38, 0.6);
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
   }
   50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 60px rgba(220, 38, 38, 0.8), 0 0 100px rgba(220, 38, 38, 0.4);
+    transform: scale(1.03);
+    box-shadow: 0 0 50px rgba(220, 38, 38, 0.7);
   }
 }
 
@@ -98,130 +83,53 @@ body {
   animation: sos-pulse 1.5s ease-in-out infinite;
 }
 
-/* GPay Success Animation */
-@keyframes success-scale {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+/* Severity Badge - All Red/White */
+.severity-1, .severity-2, .severity-3, .severity-4, .severity-5 {
+  background: #dc2626;
+  color: white;
 }
 
-@keyframes checkmark-draw {
-  0% {
-    stroke-dashoffset: 100;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-.success-popup {
-  animation: success-scale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-.checkmark-circle {
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  animation: checkmark-draw 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
-}
-
-.checkmark-check {
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: checkmark-draw 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
-}
-
-.ripple-effect {
-  animation: ripple 0.8s ease-out forwards;
-}
-
-/* Severity Badge Colors */
-.severity-1 { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
-.severity-2 { background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); }
-.severity-3 { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-.severity-4 { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); }
-.severity-5 { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
-
-/* Status Badge Colors */
+/* Status Badge */
 .status-pending {
-  background: rgba(245, 158, 11, 0.2);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #a3a3a3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .status-dispatched {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(220, 38, 38, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(220, 38, 38, 0.3);
 }
 
 .status-closed {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  color: #737373;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Incident Type Icons */
-.incident-accident { color: #f97316; }
-.incident-fire { color: #ef4444; }
-.incident-weapon { color: #dc2626; }
-.incident-violence { color: #a855f7; }
-.incident-medical { color: #3b82f6; }
-.incident-other { color: #6b7280; }
-
-/* Scanline Effect for Dashboard */
-.scanlines::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
-    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-  background-size: 100% 4px, 3px 100%;
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-/* Tailwind Overrides */
+/* Tailwind Overrides - Professional Black/Red/White */
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 84% 60%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 217 91% 60%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 64%;
-    --accent: 38 92% 50%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 84% 60%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 84% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 84% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 10%;
+    --input: 0 0% 10%;
+    --ring: 0 84% 50%;
     --radius: 0.75rem;
   }
 }
@@ -235,42 +143,33 @@ body {
   }
 }
 
-/* Mobile Optimizations */
-@media (max-width: 640px) {
-  .safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 20px);
-  }
-  
-  .safe-top {
-    padding-top: env(safe-area-inset-top, 20px);
-  }
+/* Mobile Safe Areas */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), 16px);
 }
 
-/* Button Active States */
-.btn-press:active {
-  transform: scale(0.95);
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 24px);
+}
+
+/* Button Press */
+.btn-press {
   transition: transform 0.1s ease;
 }
 
-/* Card Hover */
-.card-hover {
-  transition: all 0.2s ease;
+.btn-press:active {
+  transform: scale(0.95);
 }
 
-.card-hover:hover {
-  background: var(--surface-highlight);
-  transform: translateY(-2px);
+/* Line Clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Input Focus */
-input:focus, textarea:focus, select:focus {
-  outline: none;
-  ring: 2px solid var(--primary);
-}
-
-/* Hide number input arrows */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+/* Active Scale */
+.active\:scale-98:active {
+  transform: scale(0.98);
 }
