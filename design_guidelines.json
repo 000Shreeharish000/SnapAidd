@@ -1,0 +1,134 @@
+{
+  "project_name": "SnapAid",
+  "theme": "dark",
+  "design_philosophy": {
+    "name": "Tactical Modern",
+    "core_principles": [
+      "Urgency through Contrast: High-visibility neons against deep matte black.",
+      "Thumb-Zone First: Critical actions (SOS, Upload) must be reachable with one hand.",
+      "Data Density with Breath: Dashboard grids must be dense but separated by clean gutters.",
+      "Feedback is King: Every tap must have immediate visual/haptic feedback (pulse, ripple, glow)."
+    ],
+    "emotional_tone": "Authoritative, Urgent, trustworthy, Efficient"
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Barlow Condensed, sans-serif",
+      "weights": ["700", "900"],
+      "usage": "Page titles, SOS alerts, Stat numbers",
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "font_family": "Inter, sans-serif",
+      "weights": ["400", "500"],
+      "usage": "General text, instructions, form labels"
+    },
+    "mono": {
+      "font_family": "JetBrains Mono, monospace",
+      "weights": ["400"],
+      "usage": "Timestamps, coordinates, ID numbers"
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#09090b",
+      "surface": "#18181b",
+      "surface_highlight": "#27272a",
+      "primary": "#ef4444",
+      "primary_glow": "rgba(239, 68, 68, 0.5)",
+      "secondary": "#3b82f6",
+      "accent": "#f59e0b",
+      "success": "#22c55e",
+      "text_primary": "#fafafa",
+      "text_secondary": "#a1a1aa",
+      "border": "#27272a"
+    },
+    "gradients": {
+      "emergency": "linear-gradient(135deg, #dc2626 0%, #991b1b 100%)",
+      "police": "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
+      "gold_badge": "linear-gradient(135deg, #fcd34d 0%, #d97706 100%)"
+    }
+  },
+  "layout_strategies": {
+    "citizen_mobile": {
+      "type": "Stack",
+      "spacing": "space-y-6",
+      "container_padding": "p-6",
+      "alignment": "center",
+      "special_rules": "Bottom-heavy layout. Primary actions in lower 50% of screen."
+    },
+    "police_dashboard": {
+      "type": "Bento Grid",
+      "grid_cols": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4",
+      "gap": "gap-4",
+      "widgets": [
+        "Live Map (col-span-2 row-span-2)",
+        "Incident Feed (col-span-1 row-span-2)",
+        "Stats (col-span-1)"
+      ]
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary hover:bg-red-600 text-white font-bold py-4 px-8 rounded-xl shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all active:scale-95",
+      "sos": "rounded-full w-32 h-32 bg-red-600 text-white font-black text-3xl shadow-[0_0_50px_rgba(220,38,38,0.6)] animate-pulse border-4 border-red-400",
+      "secondary": "bg-secondary/10 text-secondary border border-secondary/20 hover:bg-secondary/20 py-3 px-6 rounded-lg font-medium"
+    },
+    "cards": {
+      "base": "bg-surface border border-border rounded-xl p-5 shadow-lg relative overflow-hidden",
+      "incident": "bg-surface border-l-4 border-l-primary hover:bg-surface_highlight transition-colors cursor-pointer"
+    },
+    "inputs": {
+      "base": "bg-black/50 border border-input text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none placeholder:text-muted-foreground"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-xl bg-black/60 border border-white/10",
+    "scanlines": "background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%;",
+    "glow_effects": "box-shadow: 0 0 20px theme('colors.primary.DEFAULT')"
+  },
+  "animation": {
+    "sos_pulse": "animate-pulse",
+    "gpay_success": "See CSS implementation for tick animation",
+    "page_transition": "initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -20 }"
+  },
+  "assets": {
+    "image_urls": {
+      "dashboard_bg": "https://images.unsplash.com/photo-1677678711761-09e049805d97?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwZGFyayUyMGNpdHklMjBtYXAlMjBpbnRlcmZhY2UlMjBodWR8ZW58MHx8fHwxNzcyMzY0OTExfDA&ixlib=rb-4.1.0&q=85",
+      "emergency_hero": "https://images.unsplash.com/photo-1560084068-f24d02201816?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwyfHxlbWVyZ2VuY3klMjByZXNwb25zZSUyMHRlYW0lMjBuaWdodCUyMGFjdGlvbnxlbnwwfHx8fDE3NzIzNjQ5MTJ8MA&ixlib=rb-4.1.0&q=85",
+      "incident_placeholder": "https://images.unsplash.com/photo-1591250653107-92c706a59493?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2MTJ8MHwxfHNlYXJjaHwzfHxlbWVyZ2VuY3klMjByZXNwb25zZSUyMHRlYW0lMjBuaWdodCUyMGFjdGlvbnxlbnwwfHx8fDE3NzIzNjQ5MTJ8MA&ixlib=rb-4.1.0&q=85"
+    },
+    "icons": {
+      "library": "lucide-react",
+      "mapping": {
+        "SOS": "Siren",
+        "Police": "ShieldAlert",
+        "Fire": "Flame",
+        "Ambulance": "Ambulance",
+        "Profile": "User",
+        "Home": "Home",
+        "Map": "Map",
+        "Upload": "UploadCloud",
+        "Camera": "Camera",
+        "Video": "Video"
+      }
+    }
+  },
+  "instructions_to_main_agent": [
+    "IMMEDIATELY install 'lucide-react' and 'framer-motion' using yarn.",
+    "Add 'Barlow Condensed' and 'JetBrains Mono' to index.html or import in CSS.",
+    "Implement the 'GPay Success' animation in a separate CSS module or component.",
+    "For the Police Dashboard, use the 'dashboard_bg' image with a heavy dark overlay (bg-black/80) to ensure text readability.",
+    "The SOS button must be the most prominent element on the Citizen Home screen.",
+    "Use 'sonner' for all toast notifications (emergency sent, location updated).",
+    "Ensure the 'scanlines' effect is subtle and does not interfere with readability."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Don't make generic centered layouts. Use asymmetry where possible, except for the SOS button which demands centrality.",
+    "Create depth through layered design elements (z-index).",
+    "Use glass-morphism effects for floating navigations.",
+    "NEVER use generic AI emoji icons.",
+    "Every interaction needs micro-animations.",
+    "Use 2-3x more spacing than feels comfortable."
+  ]
+}
