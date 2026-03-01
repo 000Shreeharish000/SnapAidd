@@ -318,15 +318,15 @@ async def analyze_media(request: Request, data: AnalyzeMediaRequest):
         chat = LlmChat(
             api_key=GEMINI_API_KEY,
             session_id=f"analysis_{uuid.uuid4().hex[:8]}",
-            system_message="""You are an emergency incident analyzer. Analyze the provided media and respond ONLY with valid JSON in this exact format:
+            system_message="""You are an emergency incident analyzer. Analyze the provided image/video and respond ONLY with valid JSON in this exact format:
 {
     "incident_type": "One of: Accident, Fire, Weapon, Violence, Medical, Natural Disaster, Crime, Other",
     "severity_score": "Integer from 1 (minor) to 5 (critical)",
     "confidence_score": "Float from 0.0 to 1.0 indicating how confident you are",
     "summary": "Brief 2-3 sentence description of what you see and recommended action"
 }
-No other text, just the JSON object."""
-        ).with_model("gemini", "gemini-2.5-flash-preview-05-20")
+Return ONLY the JSON object, no markdown, no code blocks, no other text."""
+        ).with_model("gemini", "gemini-2.5-flash")
         
         # Analyze with Gemini
         media_file = FileContentWithMimeType(
