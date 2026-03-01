@@ -369,7 +369,7 @@ No other text, just the JSON object."""
 
 # ============ INCIDENT ROUTES ============
 
-@api_router.post("/incidents", response_model=IncidentResponse)
+@api_router.post("/incidents", response_model=IncidentResponse, status_code=201)
 async def create_incident(request: Request, incident: IncidentCreate):
     user = await get_current_user(request)
     
