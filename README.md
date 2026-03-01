@@ -97,18 +97,7 @@ Public access to:
 
 ### End-to-end flow
 
-```mermaid
-flowchart LR
-  A[Citizen (Mobile Interface)] --> B[Media Upload<br/>(Image / Video)]
-  B --> C[Gemini Multimodal AI Analysis]
-  C --> D[Structured Incident Packet Generator]
-  D --> E[FastAPI Backend]
-  E --> F[(PostgreSQL Database)]
-  E --> G[WebSocket Real-Time Streaming]
-  G --> H[Police Command Dashboard]
-```
 
-### Core modules
 
 ```mermaid
 graph TD
