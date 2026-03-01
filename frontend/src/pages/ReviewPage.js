@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import {
@@ -22,13 +21,13 @@ import {
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const incidentTypes = [
-  { value: 'Accident', icon: Car, color: 'text-orange-400' },
-  { value: 'Fire', icon: Flame, color: 'text-red-400' },
-  { value: 'Weapon', icon: Shield, color: 'text-red-600' },
-  { value: 'Violence', icon: Swords, color: 'text-purple-400' },
-  { value: 'Medical', icon: Stethoscope, color: 'text-blue-400' },
-  { value: 'Crime', icon: AlertTriangle, color: 'text-yellow-400' },
-  { value: 'Other', icon: HelpCircle, color: 'text-zinc-400' },
+  { value: 'Accident', icon: Car },
+  { value: 'Fire', icon: Flame },
+  { value: 'Weapon', icon: Shield },
+  { value: 'Violence', icon: Swords },
+  { value: 'Medical', icon: Stethoscope },
+  { value: 'Crime', icon: AlertTriangle },
+  { value: 'Other', icon: HelpCircle },
 ];
 
 const ReviewPage = () => {
@@ -51,7 +50,6 @@ const ReviewPage = () => {
     longitude: gpsLocation?.longitude || null
   });
 
-  // Analyze media on mount
   useEffect(() => {
     if (!media) {
       navigate('/dashboard');
@@ -116,7 +114,8 @@ const ReviewPage = () => {
           state: {
             incident,
             pointsEarned: form.severity_score * 10
-          }
+          },
+          replace: true
         });
       } else {
         throw new Error('Submit failed');
@@ -133,7 +132,7 @@ const ReviewPage = () => {
   const isVideo = media?.type?.startsWith('video');
 
   return (
-    <div className="min-h-screen bg-[#09090b] flex flex-col" data-testid="review-page">
+    <div className="min-h-screen bg-black flex flex-col" data-testid="review-page">
       {/* Header */}
       <header className="glass sticky top-0 z-50 px-4 py-3 safe-top">
         <div className="flex items-center gap-4">
@@ -141,7 +140,7 @@ const ReviewPage = () => {
             variant="ghost"
             size="icon"
             onClick={() => navigate('/dashboard')}
-            className="text-zinc-400 hover:text-white"
+            className="text-zinc-500 hover:text-white"
             data-testid="back-btn"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -152,7 +151,7 @@ const ReviewPage = () => {
 
       <main className="flex-1 p-4 space-y-6 safe-bottom">
         {/* Media Preview */}
-        <div className="rounded-xl overflow-hidden bg-zinc-900 aspect-video relative">
+        <div className="rounded-xl overflow-hidden bg-zinc-950 border border-zinc-900 aspect-video relative">
           {isVideo ? (
             <video
               src={mediaPreview}
@@ -169,12 +168,13 @@ const ReviewPage = () => {
           
           {/* AI Analysis Overlay */}
           {analyzing && (
-            <div className="absolute inset-0 bg-black/80 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/90 flex items-center justify-center">
               <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-blue-600/20 flex items-center justify-center mx-auto mb-3">
-                  <Sparkles className="w-8 h-8 text-blue-400 animate-pulse" />
+                <div className="w-16 h-16 rounded-full bg-red-950/50 flex items-center justify-center mx-auto mb-3">
+                  <Sparkles className="w-8 h-8 text-red-500 animate-pulse" />
                 </div>
                 <p className="text-white font-medium">{t('analyzingMedia')}</p>
+                <p className="text-zinc-500 text-sm mt-1">Gemini AI is analyzing...</p>
               </div>
             </div>
           )}
@@ -185,11 +185,11 @@ const ReviewPage = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20"
+            className="flex items-center gap-2 p-3 rounded-lg bg-zinc-950 border border-zinc-900"
           >
-            <Sparkles className="w-5 h-5 text-blue-400" />
-            <span className="text-blue-400 text-sm">
-              AI Analysis: {(form.confidence_score * 100).toFixed(0)}% confidence
+            <Sparkles className="w-5 h-5 text-red-500" />
+            <span className="text-zinc-300 text-sm">
+              AI Analysis: <span className="text-white font-medium">{(form.confidence_score * 100).toFixed(0)}% confidence</span>
             </span>
           </motion.div>
         )}
@@ -198,23 +198,23 @@ const ReviewPage = () => {
         <div className="space-y-4">
           {/* Incident Type */}
           <div className="space-y-2">
-            <Label className="text-zinc-300">{t('incidentType')}</Label>
+            <Label className="text-zinc-400">{t('incidentType')}</Label>
             <Select
               value={form.incident_type}
               onValueChange={(v) => setForm({ ...form, incident_type: v })}
             >
-              <SelectTrigger className="bg-black/50 border-zinc-700 text-white" data-testid="incident-type-select">
+              <SelectTrigger className="bg-zinc-950 border-zinc-800 text-white" data-testid="incident-type-select">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-zinc-700">
+              <SelectContent className="bg-zinc-950 border-zinc-800">
                 {incidentTypes.map((type) => (
                   <SelectItem 
                     key={type.value} 
                     value={type.value}
-                    className="text-white hover:bg-zinc-800"
+                    className="text-white hover:bg-zinc-900"
                   >
                     <div className="flex items-center gap-2">
-                      <type.icon className={`w-4 h-4 ${type.color}`} />
+                      <type.icon className="w-4 h-4 text-red-500" />
                       <span>{t(type.value.toLowerCase())}</span>
                     </div>
                   </SelectItem>
@@ -225,7 +225,7 @@ const ReviewPage = () => {
 
           {/* Severity */}
           <div className="space-y-2">
-            <Label className="text-zinc-300">{t('severity')} (1-5)</Label>
+            <Label className="text-zinc-400">{t('severity')} (1-5)</Label>
             <div className="flex gap-2">
               {[1, 2, 3, 4, 5].map((level) => (
                 <button
@@ -234,8 +234,8 @@ const ReviewPage = () => {
                   onClick={() => setForm({ ...form, severity_score: level })}
                   className={`flex-1 py-3 rounded-lg font-bold transition-all ${
                     form.severity_score === level
-                      ? `severity-${level} text-white`
-                      : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
+                      ? 'bg-red-600 text-white'
+                      : 'bg-zinc-950 border border-zinc-800 text-zinc-500 hover:bg-zinc-900'
                   }`}
                   data-testid={`severity-${level}`}
                 >
@@ -247,22 +247,22 @@ const ReviewPage = () => {
 
           {/* Description */}
           <div className="space-y-2">
-            <Label className="text-zinc-300">{t('description')}</Label>
+            <Label className="text-zinc-400">{t('description')}</Label>
             <Textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               placeholder="Describe the incident..."
-              className="bg-black/50 border-zinc-700 text-white placeholder:text-zinc-500 min-h-[100px]"
+              className="bg-zinc-950 border-zinc-800 text-white placeholder:text-zinc-600 min-h-[100px]"
               data-testid="description-input"
             />
           </div>
 
           {/* Location */}
-          <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-900/50 border border-zinc-800">
-            <MapPin className={`w-5 h-5 ${form.latitude ? 'text-green-400' : 'text-zinc-500'}`} />
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-950 border border-zinc-900">
+            <MapPin className={`w-5 h-5 ${form.latitude ? 'text-red-500' : 'text-zinc-600'}`} />
             <div className="flex-1">
-              <p className="text-sm text-zinc-300">{t('location')}</p>
-              <p className="text-xs text-zinc-500 font-mono">
+              <p className="text-sm text-zinc-400">{t('location')}</p>
+              <p className="text-xs text-zinc-600 font-mono">
                 {form.latitude
                   ? `${form.latitude.toFixed(6)}, ${form.longitude.toFixed(6)}`
                   : 'Not available'
@@ -275,7 +275,7 @@ const ReviewPage = () => {
           <Button
             onClick={handleSubmit}
             disabled={submitting || analyzing}
-            className="w-full py-6 bg-red-600 hover:bg-red-700 text-white font-bold glow-red"
+            className="w-full py-6 bg-red-600 hover:bg-red-700 text-white font-bold"
             data-testid="submit-btn"
           >
             {submitting ? (
