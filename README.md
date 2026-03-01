@@ -1,191 +1,208 @@
-SnapAid
-Edge-Powered Emergency Intelligence & Verification System
+# SnapAid
+
+**Edge-Powered Emergency Intelligence & Verification System**
 
 No citizen should hesitate to report an emergency due to lack of trust, delay, or misinformation risk.
 
-SnapAid is a real-time AI-powered emergency intelligence platform that transforms raw citizen-submitted media into structured, verified operational intelligence for law enforcement agencies.
+SnapAid is a real-time, AI-powered emergency intelligence platform that transforms citizen-submitted media into **structured, verified operational intelligence** for law enforcement agencies.
 
-Instead of forwarding unstructured images or videos, SnapAid performs automated incident classification, severity scoring, confidence evaluation, and authenticity validation before streaming structured incident packets to a live Police Command Dashboard.
+Instead of forwarding unstructured images or videos, SnapAid performs automated **incident classification**, **severity scoring**, **confidence evaluation**, and **authenticity validation** before streaming **structured incident packets** to a live **Police Command Dashboard**.
 
-Overview
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+  - [Citizen Module](#citizen-module)
+  - [Police Dashboard](#police-dashboard)
+  - [Safety & Authenticity Layer](#safety--authenticity-layer)
+  - [Multi-Language Support](#multi-language-support)
+  - [Emergency Numbers Page](#emergency-numbers-page)
+- [System Architecture](#system-architecture)
+- [Technology Stack](#technology-stack)
+- [Impact](#impact)
+- [Demo](#demo)
+- [Installation & Setup](#installation--setup)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Environment Variables](#environment-variables)
+- [Security Considerations](#security-considerations)
+
+---
+
+## Overview
 
 Modern emergency systems face two critical challenges:
 
-Delayed triage due to manual inspection of unstructured media
+- **Delayed triage** due to manual inspection of unstructured media
+- **Increasing misinformation** caused by AI-generated or manipulated content
 
-Increasing misinformation caused by AI-generated or manipulated content
+SnapAid addresses these gaps by converting raw media into **validated, severity-scored intelligence** before it reaches command centers. This enables faster prioritization, reduces false alarms, and improves operational trust.
 
-SnapAid addresses these gaps by converting raw media into validated, severity-scored intelligence before it reaches command centers. This enables faster prioritization, reduces false alarms, and improves operational trust.
+---
 
-Key Features
-Citizen Module
+## Key Features
 
-Capture or upload image/video instantly
+### Citizen Module
 
-AI-powered incident classification
+- Capture or upload image/video instantly
+- AI-powered incident classification
+- Severity scoring (**1–5** scale)
+- Confidence scoring
+- AI-generated contextual summary
+- Automatic timestamp and GPS capture
+- Structured incident submission
+- Civic participation points system
+- **“Republic Day Civic Award”** badge recognition
 
-Severity scoring (1–5 scale)
+### Police Dashboard
 
-Confidence scoring
+- Secure role-based login
+- Real-time incident feed
+- Interactive geospatial map visualization
+- Severity and status filtering
+- Incident detail view
+- Status updates (**Pending / Dispatched / Closed**)
+- Action logging
 
-AI-generated contextual summary
+### Safety & Authenticity Layer
 
-Automatic timestamp and GPS capture
+- AI-generated media detection
+- Confidence scoring system
+- Structured incident packet generation
+- Reduced misinformation risk
+- JWT-based authentication
+- Secure password hashing
 
-Structured incident submission
+### Multi-Language Support
 
-Civic participation points system
+- English
+- Tamil
+- Hindi
 
-“Republic Day Civic Award” badge recognition
-
-Police Dashboard
-
-Secure role-based login
-
-Real-time incident feed
-
-Interactive geospatial map visualization
-
-Severity and status filtering
-
-Incident detail view
-
-Status updates (Pending / Dispatched / Closed)
-
-Action logging
-
-Safety & Authenticity Layer
-
-AI-generated media detection
-
-Confidence scoring system
-
-Structured incident packet generation
-
-Reduced misinformation risk
-
-JWT-based authentication
-
-Secure password hashing
-
-Multi-Language Support
-
-English
-
-Tamil
-
-Hindi
-
-Emergency Numbers Page
+### Emergency Numbers Page
 
 Public access to:
 
-Police (112)
+- Police (**112**)
+- Ambulance
+- Fire
+- Women Helpline
+- Cybercrime Helpline
 
-Ambulance
+---
 
-Fire
+## System Architecture
 
-Women Helpline
+### End-to-end flow
 
-Cybercrime Helpline
+```mermaid
+flowchart LR
+  A[Citizen (Mobile Interface)] --> B[Media Upload<br/>(Image / Video)]
+  B --> C[Gemini Multimodal AI Analysis]
+  C --> D[Structured Incident Packet Generator]
+  D --> E[FastAPI Backend]
+  E --> F[(PostgreSQL Database)]
+  E --> G[WebSocket Real-Time Streaming]
+  G --> H[Police Command Dashboard]
+```
 
-System Architecture
+### Core modules
 
-Citizen (Mobile Interface)
-→ Media Upload (Image / Video)
-→ Gemini Multimodal AI Analysis
-→ Structured Incident Packet Generator
-→ FastAPI Backend
-→ PostgreSQL Database
-→ WebSocket Real-Time Streaming
-→ Police Command Dashboard
+```mermaid
+graph TD
+  Citizen[Citizen Module] --> Backend[FastAPI Backend]
+  Dashboard[Police Dashboard] --> Backend
+  Backend --> DB[(PostgreSQL)]
+  Backend --> AI[Gemini Multimodal API]
+  Backend --> Auth[JWT Auth + RBAC]
+  Backend --> WS[WebSockets]
+```
 
-Technology Stack
+---
 
-Frontend:
+## Technology Stack
 
-React (Mobile-first UI)
+### Frontend
 
-Leaflet (Geospatial Map Visualization)
+- **React** (mobile-first UI)
+- **Leaflet** (geospatial map visualization)
 
-Backend:
+### Backend
 
-FastAPI
+- **FastAPI**
+- **PostgreSQL**
+- **SQLAlchemy ORM**
+- **JWT Authentication**
+- **WebSockets**
 
-PostgreSQL
+### AI
 
-SQLAlchemy ORM
+- **Gemini Multimodal API**
+- Severity & confidence scoring logic
 
-JWT Authentication
+### Security
 
-WebSockets
+- **Bcrypt** password hashing
+- Role-based access control (RBAC)
+- Token-based authentication
 
-AI:
+---
 
-Gemini Multimodal API
-
-Severity & Confidence Scoring Logic
-
-Security:
-
-Bcrypt Password Hashing
-
-Role-Based Access Control
-
-Token Authentication
-
-Impact
+## Impact
 
 SnapAid enhances emergency response systems by:
 
-Reducing manual triage workload
-
-Minimizing response latency
-
-Decreasing false alarm volume
-
-Mitigating misinformation and synthetic media risks
-
-Improving structured prioritization of incidents
+- Reducing manual triage workload
+- Minimizing response latency
+- Decreasing false alarm volume
+- Mitigating misinformation and synthetic media risks
+- Improving structured prioritization of incidents
 
 By converting raw media into verified intelligence, SnapAid strengthens operational reliability and modernizes public safety infrastructure.
 
-Demo
+---
 
-Live Demo:
-[Insert Live Deployment Link Here]
+## Demo
 
-Demo Video:
-[Insert Demo Video Link Here]
+- **Live Demo:** _[Insert Live Deployment Link Here]_
+- **Demo Video:** _[Insert Demo Video Link Here]_
+- **GitHub Repository:** _[Insert GitHub Repository Link Here]_
 
-GitHub Repository:
-[Insert GitHub Repository Link Here]
+---
 
-Installation & Setup
+## Installation & Setup
 
-Backend:
+### Backend
 
+```bash
 pip install -r requirements.txt
 uvicorn main:app --reload
+```
 
-Frontend:
+### Frontend
 
+```bash
 npm install
 npm start
+```
 
-Environment Variables Required:
+---
 
-DATABASE_URL
-JWT_SECRET_KEY
-GEMINI_API_KEY
+## Environment Variables
 
-Security Considerations
+Create a `.env` file (or configure your deployment environment) with:
 
-Passwords are securely hashed.
+- `DATABASE_URL`
+- `JWT_SECRET_KEY`
+- `GEMINI_API_KEY`
 
-JWT authentication secures all protected routes.
+---
 
-Role-based middleware restricts police dashboard access.
+## Security Considerations
 
-Input validation ensures safe API interactions.
+- Passwords are securely hashed.
+- JWT authentication secures all protected routes.
+- Role-based middleware restricts police dashboard access.
+- Input validation ensures safe API interactions.
