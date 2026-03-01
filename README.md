@@ -5,22 +5,22 @@ No citizen should hesitate to report an emergency due to lack of trust, delay, o
 
 SnapAid is a real-time AI-powered emergency intelligence platform that transforms raw citizen-submitted media into structured, verified operational intelligence for law enforcement agencies.
 
-Instead of forwarding unstructured images, SnapAid performs automated incident classification, severity scoring, and authenticity validation before streaming structured incident packets to a live Police Command Dashboard.
+Instead of forwarding unstructured images or videos, SnapAid performs automated incident classification, severity scoring, confidence evaluation, and authenticity validation before streaming structured incident packets to a live Police Command Dashboard.
 
-🚀 Overview
+Overview
 
-SnapAid addresses two critical challenges in modern emergency systems:
+Modern emergency systems face two critical challenges:
 
-Delayed triage due to manual media inspection
+Delayed triage due to manual inspection of unstructured media
 
-Rising misinformation from AI-generated or manipulated content
+Increasing misinformation caused by AI-generated or manipulated content
 
-By combining multimodal AI analysis with structured backend intelligence processing, SnapAid reduces false reporting, accelerates response prioritization, and strengthens trust in citizen-generated evidence.
+SnapAid addresses these gaps by converting raw media into validated, severity-scored intelligence before it reaches command centers. This enables faster prioritization, reduces false alarms, and improves operational trust.
 
-🧠 Core Features
-👤 Citizen Module
+Key Features
+Citizen Module
 
-Capture or upload image/video
+Capture or upload image/video instantly
 
 AI-powered incident classification
 
@@ -30,33 +30,35 @@ Confidence scoring
 
 AI-generated contextual summary
 
-Location auto-detection (GPS)
+Automatic timestamp and GPS capture
 
 Structured incident submission
 
-Gamified civic participation (points & Republic Day Civic Award badge)
+Civic participation points system
 
-👮 Police Dashboard
+“Republic Day Civic Award” badge recognition
+
+Police Dashboard
 
 Secure role-based login
 
-Real-time incident feed (WebSockets)
+Real-time incident feed
 
-Interactive geospatial map clustering
+Interactive geospatial map visualization
 
-Severity-based filtering
+Severity and status filtering
 
-Status tracking (Pending / Dispatched / Closed)
+Incident detail view
 
-AI summary view
+Status updates (Pending / Dispatched / Closed)
 
 Action logging
 
-🔐 Safety & Authenticity Layer
+Safety & Authenticity Layer
 
 AI-generated media detection
 
-Confidence scoring
+Confidence scoring system
 
 Structured incident packet generation
 
@@ -64,9 +66,9 @@ Reduced misinformation risk
 
 JWT-based authentication
 
-Password hashing (bcrypt)
+Secure password hashing
 
-🌐 Multi-Language Support
+Multi-Language Support
 
 English
 
@@ -74,7 +76,7 @@ Tamil
 
 Hindi
 
-📞 Emergency Numbers Page
+Emergency Numbers Page
 
 Public access to:
 
@@ -88,28 +90,18 @@ Women Helpline
 
 Cybercrime Helpline
 
-🏗 System Architecture
-Citizen (Mobile UI)
-        │
-        ▼
-Media Upload (Image / Video)
-        │
-        ▼
-Gemini Multimodal Analysis
-        │
-        ▼
-Structured Incident Packet Generator
-        │
-        ▼
-FastAPI Backend (JWT Secured)
-        │
-        ├── PostgreSQL Database
-        ├── WebSocket Live Feed
-        └── Authenticity Scoring Engine
-        │
-        ▼
-Police Command Dashboard (React + Map View)
-⚙ Technology Stack
+System Architecture
+
+Citizen (Mobile Interface)
+→ Media Upload (Image / Video)
+→ Gemini Multimodal AI Analysis
+→ Structured Incident Packet Generator
+→ FastAPI Backend
+→ PostgreSQL Database
+→ WebSocket Real-Time Streaming
+→ Police Command Dashboard
+
+Technology Stack
 
 Frontend:
 
@@ -131,9 +123,9 @@ WebSockets
 
 AI:
 
-Gemini Multimodal API (Incident Analysis)
+Gemini Multimodal API
 
-Structured Severity & Confidence Scoring
+Severity & Confidence Scoring Logic
 
 Security:
 
@@ -143,9 +135,9 @@ Role-Based Access Control
 
 Token Authentication
 
-📊 Impact
+Impact
 
-SnapAid improves emergency response efficiency by:
+SnapAid enhances emergency response systems by:
 
 Reducing manual triage workload
 
@@ -157,55 +149,43 @@ Mitigating misinformation and synthetic media risks
 
 Improving structured prioritization of incidents
 
-The platform enhances operational reliability and strengthens modern public safety infrastructure.
+By converting raw media into verified intelligence, SnapAid strengthens operational reliability and modernizes public safety infrastructure.
 
-🎥 Demo
+Demo
 
 Live Demo:
-👉 [Insert Demo Link Here]
+[Insert Live Deployment Link Here]
 
 Demo Video:
-👉 [Insert Video Link Here]
+[Insert Demo Video Link Here]
 
 GitHub Repository:
-👉 [Insert GitHub Link Here]
+[Insert GitHub Repository Link Here]
 
-🛠 Installation & Setup
-Backend Setup
+Installation & Setup
+
+Backend:
+
 pip install -r requirements.txt
 uvicorn main:app --reload
-Frontend Setup
+
+Frontend:
+
 npm install
 npm start
 
-Configure environment variables:
+Environment Variables Required:
 
 DATABASE_URL
-
 JWT_SECRET_KEY
-
 GEMINI_API_KEY
 
-🔐 Security Considerations
+Security Considerations
 
-Passwords are securely hashed using bcrypt.
+Passwords are securely hashed.
 
-All endpoints are protected using JWT authentication.
+JWT authentication secures all protected routes.
 
-Role-based middleware restricts dashboard access to police users.
+Role-based middleware restricts police dashboard access.
 
-Input validation prevents injection attacks.
-
-📌 Future Enhancements
-
-Edge device inference optimization
-
-Advanced synthetic media detection model
-
-Integration with official emergency APIs
-
-Real-time predictive risk heatmaps
-
-🏆 AMD Slingshot 2026 Submission
-
-SnapAid is designed as scalable emergency infrastructure — not merely a reporting application — enabling faster, smarter, and more reliable public safety operations.
+Input validation ensures safe API interactions.
