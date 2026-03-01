@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from '../components/ui/button';
 import { 
-  Camera, X, Loader2, MapPin, AlertTriangle, Send, ArrowLeft
+  Camera, Loader2, MapPin, AlertTriangle, Send, ArrowLeft
 } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -24,7 +24,6 @@ const SOSPage = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // Get location on mount
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -34,7 +33,6 @@ const SOSPage = () => {
     }
   }, []);
 
-  // Start camera
   const startCamera = useCallback(async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
@@ -52,7 +50,6 @@ const SOSPage = () => {
     }
   }, []);
 
-  // Stop camera
   const stopCamera = useCallback(() => {
     if (stream) {
       stream.getTracks().forEach(track => track.stop());
@@ -61,7 +58,6 @@ const SOSPage = () => {
     setCapturing(false);
   }, [stream]);
 
-  // Capture photo
   const capturePhoto = useCallback(() => {
     if (!videoRef.current || !canvasRef.current) return;
     
@@ -78,7 +74,6 @@ const SOSPage = () => {
     stopCamera();
   }, [stopCamera]);
 
-  // Send SOS
   const sendSOS = async () => {
     if (!capturedImage) return;
     
@@ -87,7 +82,6 @@ const SOSPage = () => {
     try {
       const base64 = capturedImage.split(',')[1];
       
-      // Analyze media
       const analyzeRes = await fetch(`${API_URL}/api/analyze-media`, {
         method: 'POST',
         headers: {
@@ -102,7 +96,6 @@ const SOSPage = () => {
       
       const analysis = await analyzeRes.json();
       
-      // Submit incident
       const incidentRes = await fetch(`${API_URL}/api/incidents`, {
         method: 'POST',
         headers: {
@@ -128,7 +121,8 @@ const SOSPage = () => {
           state: { 
             incident,
             pointsEarned: (analysis.severity_score || 5) * 10
-          }
+          },
+          replace: true
         });
       } else {
         throw new Error('Failed to submit');
@@ -141,7 +135,6 @@ const SOSPage = () => {
     }
   };
 
-  // Auto-start camera on mount
   useEffect(() => {
     startCamera();
     return () => {
@@ -151,27 +144,29 @@ const SOSPage = () => {
     };
   }, []);
 
+  const handleBack = () => {
+    stopCamera();
+    navigate('/dashboard');
+  };
+
   return (
-    <div className="min-h-screen bg-[#09090b] flex flex-col" data-testid="sos-page">
+    <div className="min-h-screen bg-black flex flex-col" data-testid="sos-page">
       {/* Header */}
       <header className="absolute top-0 left-0 right-0 z-50 p-4 safe-top">
         <div className="flex items-center justify-between">
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => {
-              stopCamera();
-              navigate('/dashboard');
-            }}
-            className="w-10 h-10 rounded-full glass text-white"
+            onClick={handleBack}
+            className="w-10 h-10 rounded-full bg-black/50 text-white border border-zinc-800"
             data-testid="back-btn"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
           
-          <div className="glass px-4 py-2 rounded-full flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-red-400 font-display font-bold text-sm">{t('sosMode')}</span>
+          <div className="bg-red-600 px-4 py-2 rounded-full flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="text-white font-bold text-sm">{t('sosMode')}</span>
           </div>
           
           <div className="w-10" />
@@ -193,11 +188,11 @@ const SOSPage = () => {
             
             {/* Location Indicator */}
             <div className="absolute top-20 left-4 right-4">
-              <div className={`glass px-4 py-2 rounded-full inline-flex items-center gap-2 ${
-                location ? 'text-green-400' : 'text-amber-400'
+              <div className={`bg-black/70 px-4 py-2 rounded-full inline-flex items-center gap-2 border ${
+                location ? 'border-red-600 text-red-500' : 'border-zinc-700 text-zinc-500'
               }`}>
                 <MapPin className="w-4 h-4" />
-                <span className="text-sm">
+                <span className="text-sm font-mono">
                   {location 
                     ? `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}`
                     : 'Getting location...'
@@ -212,13 +207,13 @@ const SOSPage = () => {
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={capturePhoto}
-                  className="w-24 h-24 rounded-full bg-red-600 border-4 border-white flex items-center justify-center glow-red"
+                  className="w-24 h-24 rounded-full bg-red-600 border-4 border-white flex items-center justify-center shadow-[0_0_50px_rgba(220,38,38,0.5)]"
                   data-testid="capture-btn"
                 >
                   <Camera className="w-10 h-10 text-white" />
                 </motion.button>
               </div>
-              <p className="text-center text-white/70 mt-4 text-sm">{t('tapToCapture')}</p>
+              <p className="text-center text-zinc-500 mt-4 text-sm">{t('tapToCapture')}</p>
             </div>
           </>
         ) : capturedImage ? (
@@ -231,8 +226,8 @@ const SOSPage = () => {
             
             {/* Action Buttons */}
             <div className="absolute bottom-0 left-0 right-0 p-6 safe-bottom">
-              <div className="glass rounded-2xl p-4 space-y-4">
-                <div className="flex items-center gap-3 text-amber-400">
+              <div className="bg-black/90 border border-zinc-800 rounded-2xl p-4 space-y-4">
+                <div className="flex items-center gap-3 text-red-500">
                   <AlertTriangle className="w-5 h-5" />
                   <span className="text-sm font-medium">Emergency report will be sent immediately</span>
                 </div>
@@ -244,7 +239,7 @@ const SOSPage = () => {
                       setCapturedImage(null);
                       startCamera();
                     }}
-                    className="py-6 border-zinc-600 text-white hover:bg-zinc-800"
+                    className="py-6 border-zinc-700 text-white hover:bg-zinc-900"
                     data-testid="retake-btn"
                   >
                     <Camera className="w-5 h-5 mr-2" />
@@ -254,7 +249,7 @@ const SOSPage = () => {
                   <Button
                     onClick={sendSOS}
                     disabled={sending}
-                    className="py-6 bg-red-600 hover:bg-red-700 text-white glow-red"
+                    className="py-6 bg-red-600 hover:bg-red-700 text-white font-bold"
                     data-testid="send-sos-btn"
                   >
                     {sending ? (
@@ -284,14 +279,14 @@ const SOSPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/95 flex items-center justify-center z-50"
           >
             <div className="text-center">
               <div className="w-20 h-20 rounded-full bg-red-600 flex items-center justify-center mx-auto mb-4 sos-pulse">
                 <Send className="w-10 h-10 text-white" />
               </div>
               <p className="text-white font-display font-bold text-xl">{t('sending')}</p>
-              <p className="text-zinc-400 text-sm mt-2">Analyzing and sending emergency...</p>
+              <p className="text-zinc-500 text-sm mt-2">Analyzing with Gemini AI...</p>
             </div>
           </motion.div>
         )}
