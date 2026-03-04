@@ -46,3 +46,14 @@ Start MongoDB (if needed), then run backend in one terminal and frontend in anot
 - GEMINI_API_KEY
 - JWT_SECRET
 
+## Prototype Image
+
+![Prototype 1](public/WhatsApp%20Image%202026-03-04%20at%2023.40.17%20%281%29.jpeg)
+![Prototype 2](public/WhatsApp%20Image%202026-03-04%20at%2023.40.17.jpeg)
+![Prototype 3](public/WhatsApp%20Image%202026-03-04%20at%2023.40.18%20%281%29.jpeg)
+![Prototype 4](public/WhatsApp%20Image%202026-03-04%20at%2023.40.18%20%282%29.jpeg)
+![Prototype 5](public/WhatsApp%20Image%202026-03-04%20at%2023.40.18.jpeg)
+![Prototype 6](public/WhatsApp%20Image%202026-03-04%20at%2023.40.19%20%281%29.jpeg)
+![Prototype 7](public/WhatsApp%20Image%202026-03-04%20at%2023.40.19%20%282%29.jpeg)
+![Prototype 8](public/WhatsApp%20Image%202026-03-04%20at%2023.40.19.jpeg)
+
